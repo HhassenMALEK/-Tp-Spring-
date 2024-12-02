@@ -24,7 +24,8 @@ public class Department {
 	
 	public Department() {}
 	
-	public Department(String code, String name) {
+	public Department(Long id,String code, String name) {
+		this.id=id;
 		this.code=code;
 		this.name=name;
 	}

@@ -1,16 +1,15 @@
-package com.fr.diginamic.controller;
+package com.fr.diginamic.restController;
 
 import java.io.IOException;
 import java.util.List;
+import org.springframework.ui.Model;
 
 import com.fr.diginamic.dto.CityDto;
 import com.fr.diginamic.mapper.CityMapper;
 import com.fr.diginamic.model.Department;
 import com.fr.diginamic.service.DepartmentService;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.PageSize;
-import com.itextpdf.text.Phrase;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -21,17 +20,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 import com.fr.diginamic.service.CityService;
-
 
 
 @RestController
@@ -218,24 +210,42 @@ public class CityController {
 	 * @param response la réponse HTTP.
 	 * @throws IOException
 	 */
-	@GetMapping("/findByNbInhabitantsGreaterThan/{min}/csv")
+	@GetMapping("/findByNbInhabitantsGreaterThan/{min}/pdf")
 	public void getCityByNbInhabitantsGreaterThanCsv(@PathVariable("min") Integer min,
 																  HttpServletResponse response) throws IOException, DocumentException {
-		response.setHeader("Content-Disposition", "attachment; filename=cities.csv");
+		response.setHeader("Content-Disposition", "attachment; filename=cities.pdf");
 		Document document = new Document(PageSize.A4);
 		PdfWriter.getInstance(document,response.getOutputStream());
 		document.open();
 		document.newPage();
 
-		//BaseFont baseFont = BaseFont.createFont(Base)
+
+		// Configuration de la police pour le texte
+		BaseFont baseFont = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.WINANSI, BaseFont.EMBEDDED);
+		Font headerFont = new Font(baseFont, 14.0f, Font.BOLD, BaseColor.BLACK);
+		Font contentFont = new Font(baseFont, 12.0f, Font.NORMAL, BaseColor.DARK_GRAY);
+
+		// Ajouter un titre au document
+		document.add(new Paragraph("Liste des villes ayant plus de " + min + " habitants", headerFont));
+		document.add(new Paragraph("\n"));
+
 		List<CityDto> cityDtos = (List<CityDto>) cityMapper.toDtos(cityService.findByNbInhabitantsGreaterThan(min));
-		document.add(new Phrase("city Name, Inhabitants, Department code, department Name"));
-		for (CityDto t : cityDtos) {
-			Phrase phrase = new Phrase(t.getName() + "," + t.getInhabitantsNb() + "," + t.getDepartmentCode() + "," + t.getDepartmentName());
+
+		// Parcourir la liste des villes et ajouter leurs informations au document
+		for (CityDto city : cityDtos) {
+			Phrase phrase = new Phrase(
+					"Nom de la ville : " + city.getName() + "\n" +
+							"Nombre d'habitants : " + city.getInhabitantsNb() + "\n" +
+							"Code du département : " + city.getDepartmentCode() + "\n" +
+							"Nom du département : " + city.getDepartmentName() + "\n\n",
+					contentFont
+			);
 			document.add(phrase);
 		}
+
 		document.close();
 		response.flushBuffer();
+
 	}
 
 }
