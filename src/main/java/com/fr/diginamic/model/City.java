@@ -22,8 +22,9 @@ public class City {
 		this.name = name;
 		this.nbInhabitants = nbInhabitants;
 	}
-	public City(String name, Integer nbInhabitants, Department department) {
+	public City(Long id, String name, Integer nbInhabitants, Department department) {
 		super();
+		this.id=id;
 		this.name = name;
 		this.nbInhabitants = nbInhabitants;
 		this.department=department;

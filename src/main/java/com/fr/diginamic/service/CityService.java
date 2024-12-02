@@ -21,7 +21,7 @@ public class CityService {
 	@Autowired
 	DepartmentService departmentService;
 
-	public Iterable<City> getAllCities() throws ResourceNotFound {
+	public List<City> getAllCities() throws ResourceNotFound {
 		List<City> cities = cityRepository.findAll();
 		if(cities.isEmpty()){
 			throw new ResourceNotFound("Aucune ville trouvée");
