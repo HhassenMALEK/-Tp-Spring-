@@ -1,4 +1,4 @@
-package com.fr.diginamic.controller;
+package com.fr.diginamic.restController;
 
 import java.util.List;
 

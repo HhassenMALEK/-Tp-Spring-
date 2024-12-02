@@ -1,4 +1,4 @@
-package com.fr.diginamic.controller;
+package com.fr.diginamic.restController;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

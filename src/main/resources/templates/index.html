@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Liste des Villes</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+  <h1 class="my-4">Liste des Villes</h1>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Nom</th>
+      <th scope="col">Nombre d'habitants</th>
+      <th scope="col">Code du Département</th>
+      <th scope="col">Nom du Département</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Boucle Thymeleaf pour afficher les villes -->
+    <tr th:each="city : ${cities}">
+      <td th:text="${city.name}"></td>
+      <td th:text="${city.inhabitantsNb}"></td>
+      <td th:text="${city.departmentCode}"></td>
+      <td th:text="${city.departmentName}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

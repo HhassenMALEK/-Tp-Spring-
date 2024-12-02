@@ -1,10 +1,6 @@
-package com.fr.diginamic.controller;
+package com.fr.diginamic.restController;
 
 
-
-import com.fr.diginamic.model.City;
-import com.fr.diginamic.model.Department;
-import com.fr.diginamic.service.CityService;
 //import org.junit.jupiter.api.Test;
 //
 //import org.mockito.Mockito;

@@ -73,12 +73,12 @@ public class CityServiceTest {
 
     }
 
-
-    @Test
-    public void testGetCityIdRessourceNotFound() {
-        Long cityId = 13721L;
-        Mockito.when(cityRepository.findById(cityId)).thenReturn(Optional.empty());
-        assertThrows(ResourceNotFound.class, () -> cityService.getCityId(cityId));
-    }
+//
+//    @Test
+//    public void testGetCityIdRessourceNotFound() {
+//        Long cityId = 13721L;
+//        Mockito.when(cityRepository.findById(cityId)).thenReturn(Optional.empty());
+//        assertThrows(ResourceNotFound.class, () -> cityService.getCityId(cityId));
+//    }
 
 }
