@@ -14,7 +14,7 @@ import com.fr.diginamic.service.CityService;
 
 
 @Controller
-@RequestMapping("/api/cities")
+@RequestMapping("/api/view")
 public class CityControllerView {
     @Autowired
     private CityService cityService;
@@ -23,7 +23,7 @@ public class CityControllerView {
     private DepartmentService departmentService;
 
     // Méthode pour afficher les villes dans une page HTML via Thymeleaf
-    @GetMapping("/view")
+    @GetMapping("/list")
     public String viewCities(Model model) {
         List<CityDto> cities = (List<CityDto>) cityMapper.toDtos(cityService.getAllCities());
         model.addAttribute("cities", cities);  // Ajouter la liste des villes au modèle Thymeleaf
