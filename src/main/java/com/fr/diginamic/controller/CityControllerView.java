@@ -27,6 +27,6 @@ public class CityControllerView {
     public String viewCities(Model model) {
         List<CityDto> cities = (List<CityDto>) cityMapper.toDtos(cityService.getAllCities());
         model.addAttribute("cities", cities);  // Ajouter la liste des villes au modèle Thymeleaf
-        return "index";  // Nom de la page HTML dans src/main/resources/templates
+        return "index";
     }
 }
