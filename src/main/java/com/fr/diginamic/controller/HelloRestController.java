@@ -12,16 +12,12 @@ import com.fr.diginamic.service.HelloService;
  */
 @RestController
 @RequestMapping("/hello")
-public class HelloController {
+public class HelloRestController {
 	
 	@Autowired
 	HelloService helloService;
 
 
-	/**
-	 * Méthode de salutation
-	 * @return Le bonjour à tout le monde
-	 */
 	@GetMapping
 	public String sayHello() {
 		return helloService.getSalutation();

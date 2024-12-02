@@ -18,9 +18,9 @@ public class Department {
 	private Long id;
 	private String name;
 	private String code;
-	@JsonIgnore
 	@OneToMany(mappedBy = "department")
-	List<City> towns = new ArrayList<>();
+	@JsonIgnore
+	List<City> cities = new ArrayList<>();
 	
 	public Department() {}
 	
@@ -47,17 +47,22 @@ public class Department {
 		this.code = code;
 	}
 
-	public List<City> getTowns() {
-		return towns;
+	public List<City> getCities() {
+		return cities;
 	}
 
-	public void setTowns(List<City> towns) {
-		this.towns = towns;
+	public void setTowns(List<City> cities) {
+		this.cities = cities;
 	}
 
 	@Override
 	public String toString() {
-		return "Department [id=" + id + ", name=" + name + ", code=" + code + ", towns=" + towns + "]";
+		final StringBuilder sb = new StringBuilder("Department{");
+		sb.append("id=").append(id);
+		sb.append(", name='").append(name).append('\'');
+		sb.append(", code='").append(code).append('\'');
+		sb.append(", cities=").append(cities);
+		sb.append('}');
+		return sb.toString();
 	}
-
 }
