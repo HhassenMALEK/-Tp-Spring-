@@ -219,13 +219,14 @@ public class CityController {
 	 * @throws IOException
 	 */
 	@GetMapping("/findByNbInhabitantsGreaterThan/{min}/csv")
-	public void getTownByNbInhabitantsGreaterThanCsv(@PathVariable("min") Integer min,
+	public void getCityByNbInhabitantsGreaterThanCsv(@PathVariable("min") Integer min,
 																  HttpServletResponse response) throws IOException, DocumentException {
-		response.setHeader("Content-Disposition", "attachment; filename=town.csv");
+		response.setHeader("Content-Disposition", "attachment; filename=cities.csv");
 		Document document = new Document(PageSize.A4);
 		PdfWriter.getInstance(document,response.getOutputStream());
 		document.open();
 		document.newPage();
+
 		//BaseFont baseFont = BaseFont.createFont(Base)
 		List<CityDto> cityDtos = (List<CityDto>) cityMapper.toDtos(cityService.findByNbInhabitantsGreaterThan(min));
 		document.add(new Phrase("city Name, Inhabitants, Department code, department Name"));
